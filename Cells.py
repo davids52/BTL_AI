@@ -1,9 +1,11 @@
 import pygame
 from random import choice
 import time
+
 clock = pygame.time.Clock()
 WIDTH = 1200
 HEIGHT = 600
+
 class Cell:
     def __init__(self, x, y,tile):
         self.x, self.y = x, y
@@ -23,13 +25,14 @@ class Cell:
             pygame.draw.line(sc, pygame.Color('darkorange'), (x + self.TILE, y + self.TILE), (x , y + self.TILE), self.thickness)
         if self.walls['left']:
             pygame.draw.line(sc, pygame.Color('darkorange'), (x, y + self.TILE), (x, y), self.thickness)
-    def draw_inside(self,sc):
+            
+    def draw_inside(self,sc,color):
         x, y = self.x * self.TILE, self.y * self.TILE
-        inner_square_size = self.TILE // 2  # Kích thước của hộp vuông bên trong là 1/2 kích thước của ô vuông bên ngoài
-        inner_square_top_left_x = x + inner_square_size // 2  # Tọa độ x của điểm trên cùng bên trái của hộp vuông bên trong
-        inner_square_top_left_y = y + inner_square_size // 2  # Tọa độ y của điểm trên cùng bên trái của hộp vuông bên trong
+        inner_square_size = self.TILE // 2  
+        inner_square_top_left_x = x + inner_square_size // 2  
+        inner_square_top_left_y = y + inner_square_size // 2  
 
-        pygame.draw.rect(sc, pygame.Color('red'), (inner_square_top_left_x, inner_square_top_left_y, inner_square_size, inner_square_size))
+        pygame.draw.rect(sc, color, (inner_square_top_left_x, inner_square_top_left_y, inner_square_size, inner_square_size))
     def get_rects(self):
         rects = []
         x, y = self.x * self.TILE, self.y * self.TILE
