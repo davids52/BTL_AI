@@ -22,14 +22,13 @@ while running:
             running = False
             
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if input_box.collidepoint(event.pos):
+            if input_box.collidepoint(event.pos) and generated_maze == False:
                 active = not active
             else:
                 active = False
             color = color_active if active else color_inactive
             if generated_maze and (start is None or end is None):
                 x,y = pygame.mouse.get_pos()
-                # print(x,y)
                 for cell in maze.grid_cells:
                     if (x in range(cell.x * cell.TILE,(cell.x + 1) * cell.TILE)) \
                         and (y in range(cell.y * cell.TILE,(cell.y +1) * cell.TILE)):
@@ -54,6 +53,17 @@ while running:
                     text = text[:-1]
                 else:
                     text += event.unicode
+                pygame.draw.rect(sc, (0, 0, 0), input_box)
+
+                txt_surface = font.render(text, True, color)
+
+                # Resize the box if the text is too long.
+                width = max(200, txt_surface.get_width()+10)
+                input_box.w = width
+
+                sc.blit(txt_surface, (input_box.x+5, input_box.y+5))
+
+                pygame.display.update()
                     
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
@@ -63,12 +73,13 @@ while running:
             start = None
             end = None
             
-    if not generated_maze:
-        txt_surface = font.render(text, True, color)
-        width = max(200, txt_surface.get_width()+10)
-        input_box.w = width
-        sc.blit(txt_surface, (input_box.x+5, input_box.y+5))
-        pygame.draw.rect(sc, color, input_box, 2)
+        if not generated_maze:
+            txt_surface = font.render(text, True, color)
+            width = max(200, txt_surface.get_width()+10)
+            input_box.w = width
+            sc.blit(txt_surface, (input_box.x+5, input_box.y+5))
+            pygame.draw.rect(sc, color, input_box, 2)
+            pygame.display.update()
 
     pygame.display.flip()
 
