@@ -57,7 +57,7 @@ x,y = map(int,input("Type start point x,y:").split())
 i,j = map(int,input("Type end point i,j:").split())
 
 #size cua ma tran owr day
-m = maze(60,60)
+m = maze(30, 30)
 m.CreateMaze(x=i,y=j,loopPercent=100)
 
 start = time.perf_counter()
