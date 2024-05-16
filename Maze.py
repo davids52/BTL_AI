@@ -47,8 +47,11 @@ class Maze_duplicate:
                 current_cell = stack.pop()    
             pygame.display.flip()
             clock.tick(20)
+        
+        self.redraw_maze(sc)
+        self.redraw_maze(sc)
         self.ready_maze = True
-        return
+        return self.ready_maze
     
     def redraw_maze(self,sc):
         sc.fill(pygame.Color('black'))
@@ -153,6 +156,5 @@ def get_random_color():
 
 def reset_colors():
         global colors
-        # Đặt lại danh sách màu
         colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 0, 255), (0, 255, 255), (255, 255, 255)]
 
